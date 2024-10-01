@@ -34,14 +34,12 @@ public class Lot {
         }
     }
 
-    // Method to get lot details
-    public String getLotDetails() {
-        String lotDetails = number + ") " + description;  
+    @Override
+    public String toString() {
         if (highestBid != null) {
-            lotDetails += " - Highest bid: " + highestBid.getValue();
+            return "Lot " + number + ": " + description + " (Highest Bid: " + highestBid.getValue() + ")";
         } else {
-            lotDetails += " - No bids";
+            return "Lot " + number + ": " + description + " (No bids yet)";
         }
-        return lotDetails;
     }
 }
