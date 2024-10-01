@@ -5,38 +5,42 @@ public class Auction {
   private int nextLotNumber;
   
   public Auction() {
-    lots = new ArrayList<Lot>();
+    lots = new ArrayList<>();
     nextLotNumber = 1;
   }
   
+  // Add a new lot to the auction
   public void enterLot(String description) {
     lots.add(new Lot(nextLotNumber, description));
     nextLotNumber++;
   }
   
+  // Show all lots in the auction
   public void showLots() {
     for(Lot lot : lots) {
       System.out.println(lot.toString());
     }
   }
 
-public void makeABid(int lotNumber, Person bidder, long value) {
-  Lot selectedLot = getLot(lotNumber);
-  if(selectedLot != null) {
-    Bid bid = new Bid(bidder, value);
-    boolean successful = selectedLot.bidFor(bid);
-    if(successful) {
-      System.out.println("The bid for lot number " + lotNumber + " was successful.");
-    } else {
-      Bid highestBid = selectedLot.getHighestBid();
-      System.out.println("Lot number: " + lotNumber + " already has a bid of: " + highestBid.getValue());
+  // Place a bid on a lot
+  public void makeABid(int lotNumber, Person bidder, long value) {
+    Lot selectedLot = getLot(lotNumber);
+    if(selectedLot != null) {
+      Bid bid = new Bid(bidder, value);
+      boolean successful = selectedLot.bidFor(bid);
+      if(successful) {
+        System.out.println("The bid for lot number " + lotNumber + " was successful.");
+      } else {
+        Bid highestBid = selectedLot.getHighestBid();
+        System.out.println("Lot number: " + lotNumber + " already has a bid of: " + highestBid.getValue());
+      }
     }
   }
-}
   
-public Lot getLot(int lotNumber) {
-  if((lotNumber >= 1) && (lotNumber < nextLotNumber)) {
-      Lot selectedLot = lots.get(lotNumber – 1);
+  // Get a lot by its number
+  public Lot getLot(int lotNumber) {
+    if((lotNumber >= 1) && (lotNumber < nextLotNumber)) {
+      Lot selectedLot = lots.get(lotNumber - 1);  // Corrected minus symbol
       
       if(selectedLot.getNumber() != lotNumber) {
         System.out.println("Internal error: Lot number " + selectedLot.getNumber() +" was returned instead of " + lotNumber);
